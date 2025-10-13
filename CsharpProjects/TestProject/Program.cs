@@ -1,20 +1,18 @@
-﻿string[] validRoles = { "administrator", "manager", "user" };
-string rolePrompt = "Enter your role name (Administrator, Manager, or User)";
-Console.WriteLine(rolePrompt);
+﻿// pre-defined array of strings for project
+string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
 
-string? input = "";
-bool valid = false;
-do
+for (int i = 0; i < myStrings.Length; i++)
 {
-  input = Console.ReadLine();
-  if (!validRoles.Contains(input?.Trim()?.ToLower()))
-  {
-    Console.WriteLine($"The role name that you entered, \"{input}\" is not valid. {rolePrompt}");
-  }
-  else
-  {
-    valid = true;
-    Console.WriteLine($"Your input value ({input}) has been accepted.");
-  }
+  string myString = myStrings[i];
+  int periodLocation = myString.IndexOf('.');
 
-} while (!valid);
+  while (periodLocation != -1)
+  {
+    string currentSentence = myString.Remove(periodLocation).Trim();
+    Console.WriteLine(currentSentence);
+
+    myString = myString.Substring(periodLocation + 1).TrimStart();
+    periodLocation = myString.IndexOf('.');
+  }
+  Console.WriteLine(myString.Trim());
+}
