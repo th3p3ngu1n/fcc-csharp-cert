@@ -14,7 +14,9 @@ int maxPets = 8;
 int maxAnimalInfo = 6;
 int animalIDIndex = 0;
 int animalAgeIndex = 2;
+int animalNicknameIndex = 3;
 int animalPhysicalDescriptionIndex = 4;
+int animalPersonalityDescriptionIndex = 5;
 string? readResult;
 string menuSelection = "";
 int petCount = 0;
@@ -81,9 +83,9 @@ for (int i = 0; i < maxPets; i++)
   ourAnimals[i, animalIDIndex] = "ID #: " + animalID;
   ourAnimals[i, 1] = "Species: " + animalSpecies;
   ourAnimals[i, animalAgeIndex] = "Age: " + animalAge;
-  ourAnimals[i, 3] = "Nickname: " + animalNickname;
+  ourAnimals[i, animalNicknameIndex] = "Nickname: " + animalNickname;
   ourAnimals[i, animalPhysicalDescriptionIndex] = "Physical description: " + animalPhysicalDescription;
-  ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+  ourAnimals[i, animalPersonalityDescriptionIndex] = "Personality: " + animalPersonalityDescription;
 }
 
 // display the top-level menu options
@@ -255,9 +257,9 @@ do
         ourAnimals[petCount, animalIDIndex] = "ID #: " + animalID;
         ourAnimals[petCount, 1] = "Species: " + animalSpecies;
         ourAnimals[petCount, animalAgeIndex] = "Age: " + animalAge;
-        ourAnimals[petCount, 3] = "Nickname: " + animalNickname;
+        ourAnimals[petCount, animalNicknameIndex] = "Nickname: " + animalNickname;
         ourAnimals[petCount, animalPhysicalDescriptionIndex] = "Physical description: " + animalPhysicalDescription;
-        ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription;
+        ourAnimals[petCount, animalPersonalityDescriptionIndex] = "Personality: " + animalPersonalityDescription;
 
         // increment petCount (the array is zero-based, so we increment the counter after adding to the array)
         petCount++;
@@ -323,7 +325,7 @@ do
 
         string currentPetPhysicalDescription = ourAnimals[petIndex, animalPhysicalDescriptionIndex];
         currentPetPhysicalDescription = currentPetPhysicalDescription.Split(":")[1].Trim();
-        if (!string.IsNullOrEmpty(currentPetPhysicalDescription))
+        if (!string.IsNullOrWhiteSpace(currentPetPhysicalDescription))
         {
           continue;
         }
@@ -331,7 +333,7 @@ do
         {
           Console.WriteLine($"Enter a physical description for ID #: {currentPetID} (size, color, breed, gender, weight, housebroken)");
           readResult = Console.ReadLine();
-          if (string.IsNullOrEmpty(readResult))
+          if (string.IsNullOrWhiteSpace(readResult))
           {
             validEntry = false;
           }
@@ -341,8 +343,51 @@ do
             validEntry = true;
           }
         } while (!validEntry);
+        string currentPetNickname = ourAnimals[petIndex, animalNicknameIndex];
+        currentPetNickname = currentPetNickname.Split(":")[1].Trim();
+        if (!string.IsNullOrWhiteSpace(currentPetNickname))
+        {
+          continue;
+        }
+        validEntry = false;
+        do
+        {
+          Console.WriteLine($"Enter a nickname for ID #: {currentPetID}");
+          readResult = Console.ReadLine();
+          if (string.IsNullOrWhiteSpace(readResult))
+          {
+            validEntry = false;
+          }
+          else
+          {
+            ourAnimals[petIndex, animalNicknameIndex] = $"Nickname: {readResult}";
+            validEntry = true;
+          }
+        } while (!validEntry);
+
+        string currentPetPersonalityDescription = ourAnimals[petIndex, animalPersonalityDescriptionIndex];
+        currentPetPersonalityDescription = currentPetPersonalityDescription.Split(":")[1].Trim();
+        if (!string.IsNullOrWhiteSpace(currentPetPersonalityDescription))
+        {
+          continue;
+        }
+        validEntry = false;
+        do
+        {
+          Console.WriteLine($"Enter a personality description for ID #: {currentPetID} (likes or dislikes, tricks, energy level)");
+          readResult = Console.ReadLine();
+          if (string.IsNullOrWhiteSpace(readResult))
+          {
+            validEntry = false;
+          }
+          else
+          {
+            ourAnimals[petIndex, animalPersonalityDescriptionIndex] = $"Personality: {readResult}";
+            validEntry = true;
+          }
+        } while (!validEntry);
       }
-      Console.WriteLine("Age and physical description fields are complete for all of our friends.");
+      Console.WriteLine("Age. physical description, nickname, and personality description fields are complete for all of our friends.");
       Console.WriteLine("Press the Enter key to continue.");
       readResult = Console.ReadLine();
       break;
