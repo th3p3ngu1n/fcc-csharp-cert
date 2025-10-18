@@ -1,18 +1,14 @@
-﻿// pre-defined array of strings for project
-string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+﻿Console.WriteLine("Signed integral types:");
 
-for (int i = 0; i < myStrings.Length; i++)
-{
-  string myString = myStrings[i];
-  int periodLocation = myString.IndexOf('.');
+Console.WriteLine($"sbyte  : {sbyte.MinValue} to {sbyte.MaxValue}");
+Console.WriteLine($"short  : {short.MinValue} to {short.MaxValue}");
+Console.WriteLine($"int    : {int.MinValue} to {int.MaxValue}");
+Console.WriteLine($"long   : {long.MinValue} to {long.MaxValue}");
 
-  while (periodLocation != -1)
-  {
-    string currentSentence = myString.Remove(periodLocation).Trim();
-    Console.WriteLine(currentSentence);
+Console.WriteLine("");
+Console.WriteLine("Unsigned integral types:");
 
-    myString = myString.Substring(periodLocation + 1).TrimStart();
-    periodLocation = myString.IndexOf('.');
-  }
-  Console.WriteLine(myString.Trim());
-}
+Console.WriteLine($"byte   : {byte.MinValue} to {byte.MaxValue}");
+Console.WriteLine($"ushort : {ushort.MinValue} to {ushort.MaxValue}");
+Console.WriteLine($"uint   : {uint.MinValue} to {uint.MaxValue}");
+Console.WriteLine($"ulong  : {ulong.MinValue} to {ulong.MaxValue}");
