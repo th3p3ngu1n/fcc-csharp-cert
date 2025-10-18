@@ -1,21 +1,21 @@
-﻿int[] data = new int[3];
+﻿decimal myDecimal = 1.23456789m;
+float myFloat = (float)myDecimal;
 
-string shortenedString = "Hello World!";
-Console.WriteLine(shortenedString);
+Console.WriteLine($"Decimal: {myDecimal}");
+Console.WriteLine($"Float  : {myFloat}");
 
-int val_A = 2;
-int val_B = val_A;
-val_B = 5;
+string first = "5";
+string second = "7";
+int sum = int.Parse(first) + int.Parse(second);
+Console.WriteLine(sum);
 
-Console.WriteLine("--Value Types--");
-Console.WriteLine($"val_A: {val_A}");
-Console.WriteLine($"val_B: {val_B}");
+string value1 = "5";
+string value2 = "7";
+int result = Convert.ToInt32(value1) * Convert.ToInt32(value2);
+Console.WriteLine(result);
 
-int[] ref_A= new int[1];
-ref_A[0] = 2;
-int[] ref_B = ref_A;
-ref_B[0] = 5;
+int value = (int)1.5m; // casting truncates
+Console.WriteLine(value);
 
-Console.WriteLine("--Reference Types--");
-Console.WriteLine($"ref_A[0]: {ref_A[0]}");
-Console.WriteLine($"ref_B[0]: {ref_B[0]}");
+int convertedValue = Convert.ToInt32(1.5m); // converting rounds up
+Console.WriteLine(convertedValue);
