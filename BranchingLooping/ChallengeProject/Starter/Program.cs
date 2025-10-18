@@ -12,6 +12,9 @@ string animalNickname = "";
 // variables that support data entry
 int maxPets = 8;
 int maxAnimalInfo = 6;
+int animalIDIndex = 0;
+int animalAgeIndex = 2;
+int animalPhysicalDescriptionIndex = 4;
 string? readResult;
 string menuSelection = "";
 int petCount = 0;
@@ -75,11 +78,11 @@ for (int i = 0; i < maxPets; i++)
 
   }
 
-  ourAnimals[i, 0] = "ID #: " + animalID;
+  ourAnimals[i, animalIDIndex] = "ID #: " + animalID;
   ourAnimals[i, 1] = "Species: " + animalSpecies;
-  ourAnimals[i, 2] = "Age: " + animalAge;
+  ourAnimals[i, animalAgeIndex] = "Age: " + animalAge;
   ourAnimals[i, 3] = "Nickname: " + animalNickname;
-  ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+  ourAnimals[i, animalPhysicalDescriptionIndex] = "Physical description: " + animalPhysicalDescription;
   ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
 }
 
@@ -249,11 +252,11 @@ do
         } while (validEntry == false);
 
         // store the pet information in the ourAnimals array (zero based)
-        ourAnimals[petCount, 0] = "ID #: " + animalID;
+        ourAnimals[petCount, animalIDIndex] = "ID #: " + animalID;
         ourAnimals[petCount, 1] = "Species: " + animalSpecies;
-        ourAnimals[petCount, 2] = "Age: " + animalAge;
+        ourAnimals[petCount, animalAgeIndex] = "Age: " + animalAge;
         ourAnimals[petCount, 3] = "Nickname: " + animalNickname;
-        ourAnimals[petCount, 4] = "Physical description: " + animalPhysicalDescription;
+        ourAnimals[petCount, animalPhysicalDescriptionIndex] = "Physical description: " + animalPhysicalDescription;
         ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription;
 
         // increment petCount (the array is zero-based, so we increment the counter after adding to the array)
@@ -288,7 +291,58 @@ do
 
     case "3":
       // Ensure animal ages and physical descriptions are complete
-      Console.WriteLine("Challenge Project - please check back soon to see progress.");
+      for (int petIndex = 0; petIndex < maxPets; petIndex++)
+      {
+        string currentPetID = ourAnimals[petIndex, animalIDIndex];
+        if (currentPetID == "ID #: ")
+        {
+          continue;
+        }
+        currentPetID = currentPetID.Split(":")[1].Trim();
+        string currentPetAgeString = ourAnimals[petIndex, animalAgeIndex];
+
+        if (!int.TryParse(currentPetAgeString.Split(":")[1].Trim(), out int currentPetAge))
+        {
+          validEntry = false;
+          do
+          {
+            Console.WriteLine($"Enter an age for ID #: {currentPetID}");
+            readResult = Console.ReadLine();
+            if (int.TryParse(readResult, out int newPetAge))
+            {
+              ourAnimals[petIndex, animalAgeIndex] = $"Age: {newPetAge}";
+              validEntry = true;
+            }
+            else
+            {
+              validEntry = false;
+            }
+          } while (!validEntry);
+        }
+        validEntry = false;
+
+        string currentPetPhysicalDescription = ourAnimals[petIndex, animalPhysicalDescriptionIndex];
+        currentPetPhysicalDescription = currentPetPhysicalDescription.Split(":")[1].Trim();
+        if (!string.IsNullOrEmpty(currentPetPhysicalDescription))
+        {
+          continue;
+        }
+        do
+        {
+          Console.WriteLine($"Enter a physical description for ID #: {currentPetID} (size, color, breed, gender, weight, housebroken)");
+          readResult = Console.ReadLine();
+          if (string.IsNullOrEmpty(readResult))
+          {
+            validEntry = false;
+          }
+          else
+          {
+            ourAnimals[petIndex, animalPhysicalDescriptionIndex] = $"Physical description: {readResult}";
+            validEntry = true;
+          }
+        } while (!validEntry);
+      }
+      Console.WriteLine("Age and physical description fields are complete for all of our friends.");
       Console.WriteLine("Press the Enter key to continue.");
       readResult = Console.ReadLine();
       break;
