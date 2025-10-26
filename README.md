@@ -8,3 +8,6 @@ Master the art of creating and running simple C# console applications. Dive into
 
 ## Add Logic to C# Console Applications
 Unlock the power of logic in C# console applications. Learn how to add logic and decision-making capabilities to your code, enabling your applications to make dynamic choices and respond intelligently to different scenarios.
+
+## Work with Variable Data in C# Console Applications
+Discover the versatility of variable data in C# console applications. Harness the ability to store and manipulate different types of data, such as numbers and text, as you delve into the essential concepts of variables and data handling.
